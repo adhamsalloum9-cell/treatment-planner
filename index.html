@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الخطط العلاجية | Adham Salloum</title>
+<title>مولد الخطط العلاجية | Adham Salloum</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
@@ -14,54 +14,76 @@
   header p { font-size: 14px; opacity: 0.9; }
   .card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
   .card h2 { font-size: 18px; color: #0f766e; margin-bottom: 15px; border-bottom: 2px solid #ccfbf1; padding-bottom: 8px; }
-  label { display: block; font-size: 15px; font-weight: 600; margin-bottom: 10px; color: #475569; }
-  select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; font-family: inherit; }
+  label { display: block; font-size: 15px; font-weight: 600; margin-bottom: 5px; color: #475569; }
+  input, select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; font-family: inherit; margin-bottom: 15px; }
   
-  .plan-section { margin-bottom: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; }
-  .plan-section h3 { color: #0f766e; margin-bottom: 10px; font-size: 16px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 5px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+  @media(max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+
+  .plan-section { margin-bottom: 20px; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
+  .plan-section h3 { margin-bottom: 10px; font-size: 16px; padding-bottom: 5px; border-bottom: 1px dashed #cbd5e1; }
+  
+  /* تنسيق الأهداف طويلة المدى */
+  .long-term { background: #f0fdfa; border-color: #ccfbf1; }
+  .long-term h3 { color: #0f766e; }
+  
+  /* تنسيق الأهداف قصيرة المدى */
+  .short-term { background: #fefce8; border-color: #fef08a; }
+  .short-term h3 { color: #a16207; }
+
+  /* تنسيق التدخلات */
+  .interventions { background: #f8fafc; }
+  .interventions h3 { color: #475569; }
+
   ul { padding-right: 5px; list-style: none; }
   li { margin-bottom: 12px; font-size: 15px; color: #334155; text-align: justify; display: flex; align-items: flex-start; gap: 10px; }
   li strong { color: #0f766e; }
   
-  /* تنسيق مربع الاختيار */
-  input[type="checkbox"] {
-    margin-top: 5px;
-    width: 20px;
-    height: 20px;
-    accent-color: #0f766e;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
+  input[type="checkbox"] { margin-top: 5px; width: 20px; height: 20px; accent-color: #0f766e; cursor: pointer; flex-shrink: 0; margin-bottom: 0; }
 
   .actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
-  button { padding: 12px 24px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; font-size: 15px; }
-  .btn-primary { background: #0f766e; color: white; }
+  button { padding: 12px 24px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; font-size: 15px; background: #0f766e; color: white; }
   .hidden { display: none; }
   
   @media print {
-    body { background: white; padding: 0; }
-    .card { box-shadow: none; border: 1px solid #ccc; }
-    .actions, label, select, header p { display: none !important; }
-    .plan-section { break-inside: avoid; border: none; padding: 0; margin-bottom: 15px; }
-    li { font-size: 14px; page-break-inside: avoid; }
+    body { background: white; padding: 0; direction: rtl; }
+    .container { max-width: 100%; }
+    .card { box-shadow: none; border: 1px solid #ccc; margin-bottom: 15px; padding: 15px; }
+    .actions, label, select, header p, .hidden-print { display: none !important; }
+    .plan-section { break-inside: avoid; border: 1px solid #ddd; padding: 10px; margin-bottom: 15px; background: white !important; }
+    ul { padding-right: 0; margin-right: 0; }
     
-    /* إخفاء مربعات الاختيار في الطباعة، وإخفاء العناصر غير المحددة */
+    li { font-size: 14px; page-break-inside: avoid; display: flex; flex-direction: row-reverse; justify-content: flex-end; align-items: flex-start; padding: 5px 0; border-bottom: 1px solid #eee; }
     input[type="checkbox"] { display: none !important; }
     li.unchecked { display: none !important; }
+    li.checked::before { content: "☑"; font-size: 16px; color: #000; margin-left: 8px; font-weight: bold; }
+    li strong { color: #000; font-weight: bold; }
     
-    /* إضافة مربع فارغ للعناصر المحددة */
-    li.checked::before { content: "☑ "; font-size: 16px; color: #0f766e; margin-left: 5px; }
+    .print-header { display: block !important; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
+    .print-header h1 { font-size: 20px; text-align: center; margin-bottom: 10px; }
+    .print-info { display: flex; justify-content: space-between; font-size: 14px; font-weight: bold; }
   }
 </style>
 </head>
 <body>
 <div class="container">
-  <header>
+  <header class="hidden-print">
     <h1>مولد الخطط العلاجية</h1>
     <p>إعداد: أخصائي تقويم كلام ولغة Adham Salloum</p>
   </header>
 
+  <!-- بيانات المستفيد -->
   <div class="card">
+    <h2 class="hidden-print">بيانات المستفيد</h2>
+    <div class="grid">
+      <div><label>اسم المستفيد:</label><input type="text" id="childName" placeholder="اكتب الاسم هنا..."></div>
+      <div><label>العمر:</label><input type="text" id="childAge" placeholder="مثال: 5 سنوات"></div>
+      <div><label>تاريخ التقييم:</label><input type="date" id="evalDate"></div>
+      <div><label>اسم الأخصائي:</label><input type="text" id="therapistName" value="Adham Salloum"></div>
+    </div>
+  </div>
+
+  <div class="card hidden-print">
     <label>اختر التشخيص لعرض الخطة العلاجية:</label>
     <select id="diagnosisSelect" onchange="showPlan()">
       <option value="">-- اختر من القائمة --</option>
@@ -70,6 +92,16 @@
   </div>
 
   <div id="planArea" class="hidden">
+    <!-- ترويسة الطباعة -->
+    <div class="print-header" style="display:none;">
+      <h1>خطة علاجية فردية (IEP)</h1>
+      <div class="print-info">
+        <span>اسم المستفيد: <span id="printChildName"></span></span>
+        <span>العمر: <span id="printChildAge"></span></span>
+        <span>التاريخ: <span id="printDate"></span></span>
+      </div>
+    </div>
+
     <div class="card">
       <h2 id="planTitle">الخطة العلاجية</h2>
       
@@ -78,118 +110,120 @@
         <ul id="definitionsList"></ul>
       </div>
 
-      <div class="plan-section">
+      <!-- الأهداف طويلة المدى -->
+      <div class="plan-section long-term">
         <h3>2. الأهداف طويلة المدى (Long-Term Goals)</h3>
         <ul id="goalsList"></ul>
       </div>
 
-      <div class="plan-section">
+      <!-- الأهداف قصيرة المدى -->
+      <div class="plan-section short-term">
         <h3>3. الأهداف قصيرة المدى (Short-Term Objectives)</h3>
         <ul id="objectivesList"></ul>
       </div>
 
-      <div class="plan-section">
+      <!-- التدخلات -->
+      <div class="plan-section interventions">
         <h3>4. التدخلات العلاجية (Therapeutic Interventions)</h3>
         <ul id="interventionsList"></ul>
       </div>
     </div>
 
-    <div class="actions">
-      <button class="btn-primary" onclick="window.print()">🖨️ طباعة الخطة المحددة / حفظ PDF</button>
+    <div class="actions hidden-print">
+      <button onclick="prepareAndPrint()">🖨️ طباعة الخطة المحددة / حفظ PDF</button>
     </div>
   </div>
 </div>
 
 <script>
-// قاعدة بيانات الخطط العلاجية (الأفازيا)
 const plansData = {
   aphasia: {
     title: "الأفازيا - فقدان اللغة (Aphasia)",
     definitions: [
       "<strong>1. الكلام البطيء والمتقطع:</strong> يتكون بشكل أساسي من كلمات المحتوى، مع قلة كلمات الوظيفة مثل أدوات التعريف وحروف الجر (كلام تليجرافي - Telegraphic speech).",
       "<strong>2. صعوبة في استرجاع الكلمات:</strong> (Difficulty with word retrieval).",
-      "<strong>3. كلام طليق لكنه يحتوي على أخطاء دلالية كثيرة:</strong> (Empty speech) أو يحتوي على رطانة مبتدعة (Neologistic jargon) حيث يكون الكلام غير مفهوم.",
+      "<strong>3. كلام طليق لكنه يحتوي على أخطاء دلالية كثيرة:</strong> (Empty speech) أو يحتوي على رطانة مبتدعة (Neologistic jargon).",
       "<strong>4. كلام طليق يحتوي على أخطاء استبدال حرفية و/أو لفظية:</strong> (Literal and/or verbal paraphasias).",
-      "<strong>5. ضعف في مهارات الفهم السمعي:</strong> يظهر في صعوبة اتباع التعليمات، والتعرف على الكلمات المنطوقة، والإجابة على صيغ الأسئلة بدقة.",
+      "<strong>5. ضعف في مهارات الفهم السمعي:</strong> يظهر في صعوبة اتباع التعليمات.",
       "<strong>6. مهارات التكرار اللفظي ضعيفة:</strong> (Verbal repetition skills are poor).",
-      "<strong>7. زمن استجابة طويل:</strong> تأخر في معالجة المعلومات السمعية أو بدء التعبير الشفهي (Extended latencies).",
-      "<strong>8. كلام طليق مفرط:</strong> مع استخدام الحشو اللفظي (Circumlocutious) وينقصه كلمات المحتوى (كلام نسْياني - Anomic speech).",
+      "<strong>7. زمن استجابة طويل:</strong> (Extended latencies).",
+      "<strong>8. كلام طليق مفرط:</strong> (Circumlocutious) (Anomic speech).",
       "<strong>9. وجود عبارات نمطية متكررة:</strong> (Stereotypic utterances).",
-      "<strong>10. وجود اضطرابات غير رمزية:</strong> مثل العمه (Agnosia)، أو الأداء الحركي (Apraxia)، أو التكرار المستمر (Perseveration)."
+      "<strong>10. وجود اضطرابات غير رمزية:</strong> (Agnosia, Apraxia, Perseveration)."
     ],
     goals: [
-      "<strong>1.</strong> تحسين مهارات الفهم السمعي إلى مستوى الإمكانات المتاحة (Improve auditory comprehension skills).",
+      "<strong>1.</strong> تحسين مهارات الفهم السمعي إلى مستوى الإمكانات المتاحة (Improve auditory comprehension).",
       "<strong>2.</strong> تحسين التعبير اللفظي إلى مستوى الإمكانات المتاحة (Improve verbal expression).",
-      "<strong>3.</strong> الاستخدام المستمر لاستراتيجيات التلميح الذاتي للحفاظ على مهارات التواصل (Use self-cueing strategies).",
-      "<strong>4.</strong> إظهار الأسرة/مقدم الرعاية فهمهم لعجز التواصل لدى المستفيد (Demonstrate understanding of deficits).",
-      "<strong>5.</strong> تنفيذ الأسرة لبرنامج نقل أثر التعلم بعد انتهاء العلاج الرسمي (Implement carry-over program)."
+      "<strong>3.</strong> الاستخدام المستمر لاستراتيجيات التلميح الذاتي (Use self-cueing strategies).",
+      "<strong>4.</strong> إظهار الأسرة فهمهم لعجز التواصل (Family demonstrates understanding).",
+      "<strong>5.</strong> تنفيذ الأسرة لبرنامج نقل أثر التعلم (Carry-over program)."
     ],
     objectives: [
       "<strong>1.</strong> التعاون مع التقييم الطبي/العصبي (Cooperate with medical evaluation).",
-      "<strong>2.</strong> المشاركة في تقييم النطق واللغة (Participate in speech-language evaluation).",
-      "<strong>3.</strong> المشاركة مع الأسرة في اجتماع لعرض نتائج التقييم ومقترحات الخطة العلاجية.",
-      "<strong>4.</strong> تقديم الوالدين/مقدمي الرعاية معلومات حول تاريخ المستفيد ومستوى أدائه الحالي.",
-      "<strong>5.</strong> الحفاظ على الانتباه للمهام الموكلة من قبل أخصائي النطق (Maintain attention to tasks).",
-      "<strong>6.</strong> تنفيذ استجابات هادفة للمثيرات البصرية (Purposeful responses to visual stimuli).",
-      "<strong>7.</strong> إظهار فهم متزايد للكلمات المفردة بدقة 90% بالإشارة إلى الصور أو الأشياء عند تسميتها.",
-      "<strong>8.</strong> إنتاج أي نوع من المخرجات اللفظية (Produce any type of verbal output).",
-      "<strong>9.</strong> زيادة تنوع وكمية المخرجات اللفظية (Increase variety and amount of verbal output).",
-      "<strong>10.</strong> تنفيذ الأوامر السمعية الأساسية بدقة 90% (Basic auditory commands).",
-      "<strong>11.</strong> تحسين مهارات استرجاع الكلمات (Improve word retrieval skills).",
-      "<strong>12.</strong> الإشارة بإجابات صحيحة (نعم/لا) لصيغ الأسئلة الأساسية بدقة 90%.",
-      "<strong>13.</strong> دمج الكلمات المنطوقة في عبارات (Combine spoken words into phrases).",
-      "<strong>14.</strong> تنفيذ الأوامر السمعية المعقدة بدقة 90% (Complex auditory commands).",
-      "<strong>15.</strong> الإشارة بإجابات صحيحة (نعم/لا) لصيغ الأسئلة المعقدة بدقة 90%.",
-      "<strong>16.</strong> الإجابة على الأسئلة بدقة لإظهار الفهم اللفظي للمحتوى الأساسي المقدم سمعياً.",
-      "<strong>17.</strong> دمج الكلمات المنطوقة في جمل (Combine spoken words into sentences).",
-      "<strong>18.</strong> إظهار الفهم اللفظي للمحتوى المفصل المقدم سمعياً و/أو كتابياً.",
-      "<strong>19.</strong> زيادة المحتوى المعلوماتي للجمل المنطوقة (Increase informational content).",
-      "<strong>20.</strong> تقليل تكرار الكلمات الدخيلة (مثل الرطانة، أخطاء الاستبدال، والتكرار المستمر).",
-      "<strong>21.</strong> إظهار فهم الكلام على المستوى الحواري بالإجابة الدقيقة على الأسئلة.",
-      "<strong>22.</strong> توسيع استخدام التراكيب النحوية المناسبة في الجمل المنطوقة.",
-      "<strong>23.</strong> الانخراط في الكلام على المستوى الحواري (Conversational level).",
-      "<strong>24.</strong> استخدام استراتيجيات التلميح الذاتي والتعويض للحفاظ على مهارات التواصل.",
-      "<strong>25.</strong> الاستخدام المستمر للاستراتيجيات والتقنيات المطورة لبرنامج النقل للمنزل."
+      "<strong>2.</strong> المشاركة في تقييم النطق واللغة (Participate in evaluation).",
+      "<strong>3.</strong> المشاركة مع الأسرة في اجتماع لعرض النتائج (Meeting with family).",
+      "<strong>4.</strong> تقديم معلومات حول تاريخ المستفيد (Provide history).",
+      "<strong>5.</strong> الحفاظ على الانتباه للمهام (Maintain attention).",
+      "<strong>6.</strong> استجابات هادفة للمثيرات البصرية (Responses to visual stimuli).",
+      "<strong>7.</strong> فهم الكلمات المفردة بدقة 90% (Comprehend single words).",
+      "<strong>8.</strong> إنتاج أي نوع من المخرجات اللفظية (Verbal output).",
+      "<strong>9.</strong> زيادة تنوع وكمية المخرجات اللفظية (Increase verbal output).",
+      "<strong>10.</strong> تنفيذ الأوامر السمعية الأساسية بدقة 90% (Basic commands).",
+      "<strong>11.</strong> تحسين مهارات استرجاع الكلمات (Word retrieval).",
+      "<strong>12.</strong> إجابات (نعم/لا) للأسئلة الأساسية بدقة 90% (Yes/No).",
+      "<strong>13.</strong> دمج الكلمات في عبارات (Combine into phrases).",
+      "<strong>14.</strong> تنفيذ الأوامر السمعية المعقدة (Complex commands).",
+      "<strong>15.</strong> إجابات (نعم/لا) للأسئلة المعقدة (Complex Yes/No).",
+      "<strong>16.</strong> الإجابة على الأسئلة بدقة (Answer questions).",
+      "<strong>17.</strong> دمج الكلمات في جمل (Combine into sentences).",
+      "<strong>18.</strong> الفهم اللفظي للمحتوى المفصل (Comprehend detailed content).",
+      "<strong>19.</strong> زيادة المحتوى المعلوماتي للجمل (Informational content).",
+      "<strong>20.</strong> تقليل الكلمات الدخيلة (Reduce extraneous verbalizations).",
+      "<strong>21.</strong> فهم الكلام على المستوى الحواري (Conversational comprehension).",
+      "<strong>22.</strong> توسيع استخدام التراكيب النحوية (Expand grammar).",
+      "<strong>23.</strong> الانخراط في الكلام الحواري (Engage in conversation).",
+      "<strong>24.</strong> استخدام استراتيجيات التلميح الذاتي (Use compensatory strategies).",
+      "<strong>25.</strong> الاستخدام المستمر لبرنامج النقل للمنزل (Home carry-over)."
     ],
     interventions: [
-      "<strong>1.</strong> التشاور مع الفريق الطبي بخصوص التشخيص الحالي، التاريخ المرضي، العلاج السابق، وإمكانية التأهيل.",
-      "<strong>2.</strong> مناقشة نتائج الفريق الطبي مع المستفيد والأسرة وتأثير الحالة الطبية على النطق واللغة.",
-      "<strong>3.</strong> إجراء تقييم النطق واللغة مع التركيز على عجز الأفازيا.",
-      "<strong>4.</strong> ترتيب اجتماع إحاطة تفسيري مع أسرة المستفيد لمناقشة نتائج التقييم وتوقعات التعافي واستراتيجية التدخل.",
-      "<strong>5.</strong> جمع معلومات من الأسرة حول مستوى التعليم، المهنة، والاحتياجات التواصلية الوظيفية في المنزل.",
-      "<strong>6.</strong> تأسيس اتصال بصري ثابت وقرب جسدي مناسب مع المستفيد.",
-      "<strong>7.</strong> عكس مشاعر المستفيد وطمأنته بأن مشاعره مفهومة (مثال: \"أرى أنك محبط\").",
-      "<strong>8.</strong> الإقرار الإيجابي بمحاولات المستفيد للتواصل (مثال: \"أرى أنك تحاول جاهداً أن تتحدث\").",
-      "<strong>9.</strong> لزيادة التركيز على المثيرات البصرية، تطبيق المراحل الأولى من علاج الفعل البصري (VAT) بتتبع الرسومات بالأصابع، والتلاعب بالأشياء الوظيفية، ومطابقة الأشياء بالرسومات.",
-      "<strong>10.</strong> تقديم مجموعة متنوعة من الصور والأشياء، ونمذجة إنتاج الكلمات، وإظهار وظائف الأشياء بالإيماءات، وتشجيع المستفيد على التقليد.",
-      "<strong>11.</strong> تقديم صور أو أشياء في مجال محدد، وطلب الإشارة للشيء الصحيح بعد تسميته، مع تعزيز النجاح وزيادة عدد الصور عند التحسن.",
-      "<strong>12.</strong> مطالبة المستفيد بالإشارة إلى الأشياء حول الغرفة، وزيادة عدد الأشياء لكل أمر (مثال: \"أشر إلى السقف\" أو \"أشر إلى السقف ثم إلى النافذة\").",
-      "<strong>13.</strong> نمذجة أصوات العلة المعزولة وتركيبات الحروف الساكنة والعلة، باستخدام المرآة وطرق الحركة الحسية، وتشجيع التقليد.",
-      "<strong>14.</strong> نمذجة التسلسلات اللفظية الآلية (مثل الأرقام، أيام الأسبوع)، أو الأغاني البسيطة المألوفة، أو معلومات التعريف الشخصية، وتشجيع التقليد.",
-      "<strong>15.</strong> لتسهيل المخرجات اللفظية، دندنة نمط لحني قصير (مثل 3 نغمات)، إضافة كلمات للنمط اللحني (مثل \"كيف حالك؟\")، غناء العبارة، ثم تلاشي اللحن حتى تبقى الكلمات فقط.",
-      "<strong>16.</strong> دمج الأوامر السمعية مع الإيماءات أو التلميحات اليدوية، وتقليل عدد التلميحات تدريجياً حتى ينفذ المستفيد الأوامر بالمدخلات السمعية فقط.",
-      "<strong>17.</strong> ابتكار وتقديم سلم من التلميحات لتسهيل استرجاع الكلمات، يشمل عبارات حاملة، تلميحات بالصوت الأول، تلميحات بالترابط اللفظي، وتلميحات بالوظيفة، مع تقليل التلميحات تدريجياً.",
-      "<strong>18.</strong> تسهيل استرجاع الكلمات باستخدام مهام مثل تسمية الصور، التسمية الاستجابية، إكمال الجملة، سمات ووظائف الأشياء، الترابط اللفظي، والتصنيف.",
-      "<strong>19.</strong> تقديم أسئلة حول المعلومات الشخصية والبيئة المباشرة، مع الثناء على الإجابات الصحيحة؛ وإذا أخطأ، إعطاء الإجابة الصحيحة والانتقال للسؤال التالي.",
-      "<strong>20.</strong> استخدام الكلمات التي تعلمها المستفيد سابقاً، ودمجها مع أدوات التعريف وحروف الجر والصفات والأفعال لتكوين وحدات نحوية، وطلب تكرارها.",
-      "<strong>21.</strong> إظهار أوامر من خطوتين وثلاث خطوات، ودمج الأوامر مع الأشياء الوظيفية، وإزالة النماذج تدريجياً حتى ينفذ المستفيد الأوامر بالمدخلات السمعية فقط.",
-      "<strong>22.</strong> تقديم صورة وسلسلة قصيرة من الأسئلة المنطوقة، وطلب الرد بـ \"نعم\" أو \"لا\" بعد عرض كل عنصر.",
-      "<strong>23.</strong> قراءة جملتين أو ثلاث من قصة للمستفيد، وطرح أسئلة حول الأحداث أو الأشخاص أو الأماكن المهمة، وتعزيز الإجابات الدقيقة.",
-      "<strong>24.</strong> مطالبة المستفيد بمشاهدة مقطع قصير من برنامج تلفزيوني يثير اهتمامه، وطرح أسئلة حول الأشخاص أو الأحداث أو الأماكن المهمة، وتعزيز الفهم الدقيق.",
-      "<strong>25.</strong> تقديم صور حركية من المجلات أو الصحف، وطلب وصف ما يحدث في الصور.",
-      "<strong>26.</strong> قراءة مقاطع للمستفيد، أو مشاهدة مقاطع تلفزيونية قصيرة معاً، أو الاستماع لمقاطع راديو قصيرة، وطرح أسئلة حول الأحداث أو الأشخاص أو الأماكن الثانوية.",
-      "<strong>27.</strong> تكليف المستفيد بقراءة مقال قصير من صحيفة أو مجلة، ثم طرح أسئلة حول الأحداث أو الأشخاص أو الأماكن الثانوية للتأكد من فهم المحتوى.",
-      "<strong>28.</strong> طرح سلسلة من الأسئلة الحوارية، وتشجيع المستفيد على الإجابة بجمل كاملة (مثال: س: \"كم عمرك؟\" ج: \"أنا في الخامسة والسبعين\").",
-      "<strong>29.</strong> الانخراط في محادثة منظمة مع المستفيد، ومناقشة مواضيع يجدها مثيرة للاهتمام، وطرح أسئلة قيادية لاستخراج المزيد من المعلومات.",
-      "<strong>30.</strong> تعليم المستفيد تقنيات التلميح الذاتي، بما في ذلك الوصف الوظيفي، والتلميحات الإيمائية الموجهة للمستمع، والعبارات الحاملة، أو التلميحات الذاتية المكتوبة.",
-      "<strong>31.</strong> تقديم مواد مكتوبة موسعة ومعقدة ذات اهتمام موضوعي للمستفيد لقراءتها، وطرح أسئلة تهدف لزيادة الاحتفاظ بالمعلومات ثم التعبير عن نفسه في عبارات موسعة.",
-      "<strong>32.</strong> الاستماع إلى برامج راديو أو مشاهدة برامج تلفزيونية مع المستفيد، وطرح أسئلة تهدف لزيادة الاحتفاظ بالمعلومات والتعبير عن نفسه في عبارات موسعة.",
-      "<strong>33.</strong> طرح أسئلة على المستفيد لاستخراج تراكيب نحوية مستهدفة (مثال: التركيب المستهدف: عبارة جر — س: \"أين تحفظ الأطباق؟\" ج: \"في الخزانة\").",
-      "<strong>34.</strong> لعب الأدوار لمواقف حوارية محددة (مثل الطلب في مطعم أو الاتصال بالطبيب)، مع التركيز على الكفاءة ووضوح التعبير وتعزيز نجاحات المستفيد.",
-      "<strong>35.</strong> تكليف المستفيد بحضور أنشطة محددة في المنشأة، وفي جلسة العلاج التالية، يطلب منه سرد ما حدث في النشاط.",
-      "<strong>36.</strong> إشراك المستفيد في جلسة علاج جماعية مع مستفيدين آخرين لديهم أفازيا، مع التركيز على الحفاظ على الموضوع واستخدام تقنيات التلميح الذاتي.",
-      "<strong>37.</strong> تعليم المستفيد الاستخدام المستمر للاستراتيجيات، بما في ذلك الحشو اللفظي، فترات التوقف المنظمة، وتكرار العبارات السابقة، للتعويض عن صعوبات استرجاع الكلمات وتعزيز تدفق المحادثة.",
-      "<strong>38.</strong> تطوير برنامج نقل أثر التعلم (يُستخدم عند عودة المستفيد للمنزل) يشمل أنواع التلميحات والاستراتيجيات التعويضية والتقنيات التسهيلية الأكثر فعالية للحفاظ على مهارات التواصل، وتدريب الأسرة على تنفيذه."
+      "<strong>1.</strong> التشاور مع الفريق الطبي (Confer with medical team).",
+      "<strong>2.</strong> مناقشة النتائج مع الأسرة (Discuss findings with family).",
+      "<strong>3.</strong> إجراء تقييم النطق واللغة (Conduct evaluation).",
+      "<strong>4.</strong> ترتيب اجتماع إحاطة تفسيري (Arrange staffing meeting).",
+      "<strong>5.</strong> جمع معلومات من الأسرة (Gather input from family).",
+      "<strong>6.</strong> تأسيس اتصال بصري (Establish eye contact).",
+      "<strong>7.</strong> عكس مشاعر المستفيد (Reflect affect).",
+      "<strong>8.</strong> الإقرار بمحاولات التواصل (Acknowledge attempts).",
+      "<strong>9.</strong> تطبيق علاج الفعل البصري (VAT).",
+      "<strong>10.</strong> تقديم صور وأشياء ونمذجة الكلمات (Present pictures and model).",
+      "<strong>11.</strong> طلب الإشارة للشيء الصحيح (Point to correct picture).",
+      "<strong>12.</strong> الإشارة للأشياء حول الغرفة (Point to objects).",
+      "<strong>13.</strong> نمذجة أصوات العلة (Model vowel sounds).",
+      "<strong>14.</strong> نمذجة التسلسلات اللفظية الآلية (Model automatized sequences).",
+      "<strong>15.</strong> استخدام النمط اللحني (Melodic pattern).",
+      "<strong>16.</strong> دمج الأوامر مع الإيماءات (Combine with gestures).",
+      "<strong>17.</strong> سلم التلميحات لاسترجاع الكلمات (Hierarchy of cues).",
+      "<strong>18.</strong> مهام استرجاع الكلمات (Word retrieval tasks).",
+      "<strong>19.</strong> أسئلة حول المعلومات الشخصية (Personal info questions).",
+      "<strong>20.</strong> دمج الكلمات في وحدات نحوية (Grammatical units).",
+      "<strong>21.</strong> أوامر من خطوتين وثلاث خطوات (2-3 step commands).",
+      "<strong>22.</strong> صورة وسلسلة أسئلة (Picture and questions).",
+      "<strong>23.</strong> قراءة قصة وطرح أسئلة (Read story and ask questions).",
+      "<strong>24.</strong> مشاهدة برنامج وطرح أسئلة (Watch TV and ask questions).",
+      "<strong>25.</strong> صور حركية ووصفها (Describe action pictures).",
+      "<strong>26.</strong> قراءة مقاطع والاستماع (Read passages/listen).",
+      "<strong>27.</strong> قراءة مقال وطرح أسئلة (Read article).",
+      "<strong>28.</strong> أسئلة حوارية بجمل كاملة (Conversational questions).",
+      "<strong>29.</strong> محادثة منظمة (Structured conversation).",
+      "<strong>30.</strong> تقنيات التلميح الذاتي (Self-cueing techniques).",
+      "<strong>31.</strong> مواد مكتوبة موسعة (Extended written material).",
+      "<strong>32.</strong> مشاهدة برامج تلفزيونية (TV shows).",
+      "<strong>33.</strong> تراكيب نحوية مستهدفة (Target grammatical constructs).",
+      "<strong>34.</strong> لعب الأدوار (Role-play).",
+      "<strong>35.</strong> حضور أنشطة وسردها (Attend activities).",
+      "<strong>36.</strong> جلسة علاج جماعية (Group therapy).",
+      "<strong>37.</strong> استراتيجيات التعويض (Compensatory strategies).",
+      "<strong>38.</strong> برنامج النقل للمنزل (Carry-over program)."
     ]
   }
 };
@@ -199,52 +233,30 @@ function showPlan() {
   const planArea = document.getElementById('planArea');
   const selectedPlan = select.value;
 
-  if (!selectedPlan) {
-    planArea.classList.add('hidden');
-    return;
-  }
+  if (!selectedPlan) { planArea.classList.add('hidden'); return; }
 
   const data = plansData[selectedPlan];
   document.getElementById('planTitle').textContent = data.title;
 
-  // دالة مساعدة لإنشاء القوائم مع مربعات الاختيار
   function createList(containerId, items) {
     const container = document.getElementById(containerId);
     container.innerHTML = '';
     items.forEach((item, index) => {
       const li = document.createElement('li');
-      // إضافة فئة 'checked' افتراضياً لتظهر في الطباعة إذا لم يلغ المستخدم التحديد
       li.className = 'checked'; 
-      
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
-      checkbox.checked = true; // محدد افتراضياً
+      checkbox.checked = true; 
       checkbox.id = `${containerId}_${index}`;
-      
-      // حدث عند تغيير حالة مربع الاختيار لإضافة أو إزالة فئة 'checked'
       checkbox.addEventListener('change', function() {
-        if (this.checked) {
-          li.classList.add('checked');
-          li.classList.remove('unchecked');
-        } else {
-          li.classList.add('unchecked');
-          li.classList.remove('checked');
-        }
+        if (this.checked) { li.classList.add('checked'); li.classList.remove('unchecked'); }
+        else { li.classList.add('unchecked'); li.classList.remove('checked'); }
       });
-      
       const label = document.createElement('label');
       label.htmlFor = checkbox.id;
       label.innerHTML = item;
-      // إزالة المارجن السفلي من الليبل داخل القائمة
-      label.style.marginBottom = '0';
-      label.style.fontWeight = 'normal';
-      label.style.fontSize = '15px';
-      label.style.color = '#334155';
-      label.style.cursor = 'pointer';
-
-      li.appendChild(checkbox);
-      li.appendChild(label);
-      container.appendChild(li);
+      label.style.marginBottom = '0'; label.style.fontWeight = 'normal'; label.style.fontSize = '15px'; label.style.color = '#334155';
+      li.appendChild(checkbox); li.appendChild(label); container.appendChild(li);
     });
   }
 
@@ -254,6 +266,23 @@ function showPlan() {
   createList('interventionsList', data.interventions);
 
   planArea.classList.remove('hidden');
+}
+
+function prepareAndPrint() {
+  const name = document.getElementById('childName').value;
+  const age = document.getElementById('childAge').value;
+  const date = document.getElementById('evalDate').value;
+
+  document.getElementById('printChildName').textContent = name || '.................';
+  document.getElementById('printChildAge').textContent = age || '.................';
+  document.getElementById('printDate').textContent = date || '.................';
+
+  const printHeader = document.querySelector('.print-header');
+  printHeader.style.display = 'block';
+
+  window.print();
+
+  setTimeout(() => { printHeader.style.display = 'none'; }, 1000);
 }
 </script>
 </body>
